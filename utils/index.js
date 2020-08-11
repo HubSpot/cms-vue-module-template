@@ -33,7 +33,7 @@ exports.installDependencies = function installDependencies(
   executable = 'npm',
   color,
 ) {
-  console.log(`\n\n${color('Installing project dependencies...')}`);
+  console.log(`\n\n${color('Installing module dependencies...')}`);
   return runCommand(executable, ['install'], {
     cwd,
   });
@@ -69,21 +69,21 @@ exports.runLintFix = function runLintFix(cwd, data, color) {
 exports.printMessage = function printMessage(data, { green, yellow }) {
   // TODO - Get rgb(250, 120, 32) working for output colors
   const message = `
-${green('Project initialization finished!')}
+${green('Module initialization finished!')}
 
 To get started:
 
   Install the HubSpot CLI:
   ${yellow(`npm i -g @hubspot/cms-cli`)}
 
-  Then authorize your project with HubSpot:
+  Then authorize your module with HubSpot:
   ${yellow(
     `${data.inPlace ? '' : `cd ${data.destDirName}\n  `}${installMsg(
       data,
     )}${lintMsg(data)}hs init`,
   )}
 
-  Then upload it:
+  Then upload the module to your portal:
   ${yellow(`npm run deploy`)}
 
 Documentation can be found at https://github.com/HubSpot/cms-vue-module-template
