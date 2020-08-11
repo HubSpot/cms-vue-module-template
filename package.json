@@ -1,5 +1,5 @@
 {
-  "name": "vuejs-module-template",
+  "name": "cms-vue-module-template",
   "version": "0.1.0",
   "description": "Template for generating a HubSpot module using vue-cli",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HubSpot/vuejs-module-template.git"
+    "url": "git+https://github.com/HubSpot/cms-vue-module-template.git"
   },
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/HubSpot/vuejs-module-template/issues"
+    "url": "https://github.com/HubSpot/cms-vue-module-template/issues"
   },
-  "homepage": "https://github.com/HubSpot/vuejs-module-template#readme",
+  "homepage": "https://github.com/HubSpot/cms-vue-module-template#readme",
   "devDependencies": {
     "vue-cli": "^2.9.6"
   }

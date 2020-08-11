@@ -1,8 +1,8 @@
-const path = require('path')
-const fs = require('fs')
-const spawn = require('child_process').spawn
+const path = require('path');
+const fs = require('fs');
+const spawn = require('child_process').spawn;
 
-const lintStyles = ['standard', 'airbnb']
+const lintStyles = ['standard', 'airbnb'];
 
 /**
  * Sorts dependencies in package.json alphabetically.
@@ -12,13 +12,16 @@ const lintStyles = ['standard', 'airbnb']
 exports.sortDependencies = function sortDependencies(data) {
   const packageJsonFile = path.join(
     data.inPlace ? '' : data.destDirName,
-    'package.json'
-  )
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonFile))
-  packageJson.devDependencies = sortObject(packageJson.devDependencies)
-  packageJson.dependencies = sortObject(packageJson.dependencies)
-  fs.writeFileSync(packageJsonFile, JSON.stringify(packageJson, null, 2) + '\n')
-}
+    'package.json',
+  );
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonFile));
+  packageJson.devDependencies = sortObject(packageJson.devDependencies);
+  packageJson.dependencies = sortObject(packageJson.dependencies);
+  fs.writeFileSync(
+    packageJsonFile,
+    JSON.stringify(packageJson, null, 2) + '\n',
+  );
+};
 
 /**
  * Runs `npm install` in the project directory
@@ -28,14 +31,13 @@ exports.sortDependencies = function sortDependencies(data) {
 exports.installDependencies = function installDependencies(
   cwd,
   executable = 'npm',
-  color
+  color,
 ) {
-  console.log(`\n\n# ${color('Installing project dependencies ...')}`)
-  console.log('# ========================\n')
+  console.log(`\n\n${color('Installing project dependencies...')}`);
   return runCommand(executable, ['install'], {
     cwd,
-  })
-}
+  });
+};
 
 /**
  * Runs `npm run lint -- --fix` in the project directory
@@ -46,42 +48,48 @@ exports.runLintFix = function runLintFix(cwd, data, color) {
   if (data.lint && lintStyles.indexOf(data.lintConfig) !== -1) {
     console.log(
       `\n\n${color(
-        'Running eslint --fix to comply with chosen preset rules...'
-      )}`
-    )
-    console.log('# ========================\n')
+        'Running eslint --fix to comply with chosen preset rules...',
+      )}`,
+    );
     const args =
       data.autoInstall === 'npm'
         ? ['run', 'lint', '--', '--fix']
-        : ['run', 'lint', '--fix']
+        : ['run', 'lint', '--fix'];
     return runCommand(data.autoInstall, args, {
       cwd,
-    })
+    });
   }
-  return Promise.resolve()
-}
+  return Promise.resolve();
+};
 
 /**
  * Prints the final message with instructions of necessary next steps.
  * @param {Object} data Data from questionnaire.
  */
 exports.printMessage = function printMessage(data, { green, yellow }) {
+  // TODO - Get rgb(250, 120, 32) working for output colors
   const message = `
-# ${green('Project initialization finished!')}
-# ========================
+${green('Project initialization finished!')}
 
 To get started:
 
+  Install the HubSpot CLI:
+  ${yellow(`npm i -g @hubspot/cms-cli`)}
+
+  Then authorize your project with HubSpot:
   ${yellow(
     `${data.inPlace ? '' : `cd ${data.destDirName}\n  `}${installMsg(
-      data
-    )}${lintMsg(data)}npm run dev`
+      data,
+    )}${lintMsg(data)}hs init`,
   )}
-  
-Documentation can be found at https://vuejs-templates.github.io/webpack
-`
-  console.log(message)
-}
+
+  Then upload it:
+  ${yellow(`npm run deploy`)}
+
+Documentation can be found at https://github.com/HubSpot/cms-vue-module-template
+`;
+  console.log(message);
+};
 
 /**
  * If the user will have to run lint --fix themselves, it returns a string
@@ -93,7 +101,7 @@ function lintMsg(data) {
     data.lint &&
     lintStyles.indexOf(data.lintConfig) !== -1
     ? 'npm run lint -- --fix (or for yarn: yarn run lint --fix)\n  '
-    : ''
+    : '';
 }
 
 /**
@@ -102,7 +110,7 @@ function lintMsg(data) {
  * @param {Object} data Data from the questionnaire
  */
 function installMsg(data) {
-  return !data.autoInstall ? 'npm install (or if using yarn: yarn)\n  ' : ''
+  return !data.autoInstall ? 'npm install (or if using yarn: yarn)\n  ' : '';
 }
 
 /**
@@ -124,23 +132,23 @@ function runCommand(cmd, args, options) {
           stdio: 'inherit',
           shell: true,
         },
-        options
-      )
-    )
+        options,
+      ),
+    );
 
     spwan.on('exit', () => {
-      resolve()
-    })
-  })
+      resolve();
+    });
+  });
 }
 
 function sortObject(object) {
   // Based on https://github.com/yarnpkg/yarn/blob/v1.3.2/src/config.js#L79-L85
-  const sortedObject = {}
+  const sortedObject = {};
   Object.keys(object)
     .sort()
-    .forEach(item => {
-      sortedObject[item] = object[item]
-    })
-  return sortedObject
+    .forEach((item) => {
+      sortedObject[item] = object[item];
+    });
+  return sortedObject;
 }

@@ -1,4 +1,4 @@
-# vuejs-module-template [beta]
+# cms-vue-module-template [beta]
 Template for creating [HubSpot](https://www.hubspot.com) module using [Vue](https://vuejs.org/) for use in the [HubSpot CMS](https://www.hubspot.com/products/cms).
 
 - Uses Vue version 2(currently 2.6)
@@ -6,14 +6,14 @@ Template for creating [HubSpot](https://www.hubspot.com) module using [Vue](http
 
 ## Generating a Project
 
-In order to generate a Vue project using the vuejs-module-template you will first need to have the [vue-cli](https://cli.vuejs.org/) installed...
+In order to generate a Vue project using the cms-vue-module-template you will first need to have the [vue-cli](https://cli.vuejs.org/) installed...
 ```
 yarn global add vue-cli
 ```
 
 Then to generate the project from this template...
 ```
-vue init HubSpot/vuejs-module-template
+vue init HubSpot/cms-vue-module-template
 ```
 
 Note: In order to run the commands within the project's [package.json](template/package.json) you will need to set up the [HubSpot CLI](https://www.npmjs.com/package/@hubspot/cms-cli).
