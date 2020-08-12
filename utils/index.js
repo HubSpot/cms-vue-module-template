@@ -76,18 +76,14 @@ To get started:
   Install the HubSpot CLI:
   ${yellow(`npm i -g @hubspot/cms-cli`)}
 
-  Then authorize your module with HubSpot:
+  Setup the module and deploy to HubSpot:
   ${yellow(
     `${data.inPlace ? '' : `cd ${data.destDirName}\n  `}${installMsg(
       data,
-    )}${lintMsg(data)}hs init`,
+    )}${lintMsg(data)}hs init\n  npm run deploy`,
   )}
 
-  Then upload the module to your portal:
-  ${yellow(`npm run deploy`)}
-
-Documentation can be found at https://github.com/HubSpot/cms-vue-module-template
-`;
+Documentation can be found at https://github.com/HubSpot/cms-vue-module-template`;
   console.log(message);
 };
 

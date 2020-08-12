@@ -132,29 +132,30 @@ module.exports = {
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },
-    autoInstall: {
-      when: 'isNotTest',
-      type: 'list',
-      message:
-        'Should we run `npm install` for you after the project has been created? (recommended)',
-      choices: [
-        {
-          name: 'Yes, use NPM',
-          value: 'npm',
-          short: 'npm',
-        },
-        {
-          name: 'Yes, use Yarn',
-          value: 'yarn',
-          short: 'yarn',
-        },
-        {
-          name: 'No, I will handle that myself',
-          value: false,
-          short: 'no',
-        },
-      ],
-    },
+    // This is disabled due to error that gets thrown when running this from a spawned process
+    // autoInstall: {
+    //   when: 'isNotTest',
+    //   type: 'list',
+    //   message:
+    //     'Should we run `npm install` for you after the project has been created? (recommended)',
+    //   choices: [
+    //     {
+    //       name: 'Yes, use NPM',
+    //       value: 'npm',
+    //       short: 'npm',
+    //     },
+    //     {
+    //       name: 'Yes, use Yarn',
+    //       value: 'yarn',
+    //       short: 'yarn',
+    //     },
+    //     {
+    //       name: 'No, I will handle that myself',
+    //       value: false,
+    //       short: 'no',
+    //     },
+    //   ],
+    // },
   },
   filters: {
     '.eslintrc.js': 'lint',
@@ -177,19 +178,22 @@ module.exports = {
 
     const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName);
 
-    if (data.autoInstall) {
-      installDependencies(cwd, data.autoInstall, green)
-        .then(() => {
-          return runLintFix(cwd, data, green);
-        })
-        .then(() => {
-          printMessage(data, chalk);
-        })
-        .catch((e) => {
-          console.log(chalk.red('Error:'), e);
-        });
-    } else {
-      printMessage(data, chalk);
-    }
+    // autoInstall is disabled due to error that gets thrown when running this from a spawned process
+    // if (data.autoInstall) {
+    //   installDependencies(cwd, data.autoInstall, green)
+    //     .then(() => {
+    //       return runLintFix(cwd, data, green);
+    //     })
+    //     .then(() => {
+    //       printMessage(data, chalk);
+    //     })
+    //     .catch((e) => {
+    //       console.log(chalk.red('Error:'), e);
+    //     });
+    // } else {
+    //   printMessage(data, chalk);
+    // }
+
+    printMessage(data, chalk);
   },
 };
