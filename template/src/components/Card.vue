@@ -1,7 +1,7 @@
 <template>
   <div class="{{ name }}-card">
     <p>
-      {{ reasonsText }}
+      \{{ reasonsText }}
     </p>
     <button class="btn" v-on:click="increaseClickCount">
       Click me!
